@@ -1,0 +1,78 @@
+<!doctype html>
+<!-- FAYGO TAPPER v0.3 (ALPHA). A Rainwater Games production. © 2026 Rainwater Games (Jeff Rainwater). All rights reserved.
+     Private fan game. Not affiliated with, endorsed by, or sponsored by Faygo or Brooklyn Menace. All code, art and music are original. -->
+<html lang="en"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no,viewport-fit=cover">
+<meta name="author" content="Rainwater Games - Jeff Rainwater">
+<meta name="description" content="Faygo Tapper: Brooklyn slings soda to the Juggalos at the carnival bar. A Rainwater Games fan game.">
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#2a0a3d"><meta name="mobile-web-app-capable" content="yes"><meta name="apple-mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest"><link rel="icon" href="icon-192.png"><link rel="apple-touch-icon" href="icon-192.png">
+<title>Faygo Tapper: Rainwater Games</title>
+<style>
+@font-face{font-family:Lilita;src:url(fonts/LilitaOne-Regular.ttf) format("truetype");font-display:swap}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{margin:0;height:100%;background:#12051f;overflow:hidden;touch-action:none;user-select:none;-webkit-user-select:none;font-family:Lilita,"Trebuchet MS",system-ui,sans-serif;color:#fff}
+canvas{position:fixed;inset:0;display:block;touch-action:none}
+.ov{position:fixed;inset:0;z-index:20;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:max(14px,env(safe-area-inset-top)) 16px max(14px,env(safe-area-inset-bottom));background:rgba(14,4,26,.78);text-align:center;overflow-y:auto}
+.ov.hide{display:none}
+#title{background:linear-gradient(180deg,rgba(18,5,31,.55),rgba(18,5,31,.2) 45%,rgba(18,5,31,.85));justify-content:space-between}
+.brand{letter-spacing:.32em;font-size:13px;color:#ffd84a;text-shadow:0 0 10px #ff3cac}
+.logo{font-size:clamp(46px,15vw,86px);line-height:.9;margin:4px 0 0;transform:rotate(-4deg)}
+.logo .f{display:block;background:linear-gradient(90deg,#ff2a3d,#ff8a1c,#ffe14a,#27e07a,#3bb6ff,#9b4dff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 4px 0 #000) drop-shadow(0 0 14px rgba(255,60,172,.6))}
+.logo .t{display:block;color:#fff;text-shadow:0 4px 0 #000,0 0 18px #9b4dff;font-size:.8em}
+.sub{font-size:15px;color:#e9d5ff;font-family:"Trebuchet MS",sans-serif;font-weight:bold}
+.badge{display:inline-block;background:#ff3cac;color:#fff;border-radius:8px;padding:3px 8px;font-size:12px;letter-spacing:.12em;vertical-align:middle;box-shadow:0 0 10px #ff3cac}
+.ver{font-size:12px;color:#c4b5fd;margin-left:6px}
+.btn{font-family:Lilita,"Trebuchet MS",sans-serif;font-size:22px;letter-spacing:.06em;border:0;border-radius:16px;padding:12px 26px;min-width:220px;color:#1a0629;background:linear-gradient(180deg,#ffe14a,#ff8a1c);box-shadow:0 5px 0 #8a2b00,0 0 18px rgba(255,138,28,.45);cursor:pointer}
+.btn.s{font-size:17px;padding:9px 18px;min-width:180px;background:linear-gradient(180deg,#d8b4fe,#9b4dff);box-shadow:0 4px 0 #4c1d95}
+.btn:active{transform:translateY(3px);box-shadow:0 2px 0 #8a2b00}
+.col{display:flex;flex-direction:column;align-items:center;gap:10px}
+.how{font-family:"Trebuchet MS",sans-serif;font-size:13.5px;color:#f5f3ff;max-width:340px;line-height:1.35;background:rgba(0,0,0,.35);border-radius:12px;padding:8px 12px}
+.foot{font-family:"Trebuchet MS",sans-serif;font-size:10.5px;color:#c4b5fd;line-height:1.4;margin-bottom:58px}
+h2{margin:0;font-size:34px;color:#ffe14a;text-shadow:0 3px 0 #000,0 0 14px #ff3cac;font-weight:normal}
+.row{display:flex;align-items:center;gap:12px;font-size:18px;width:min(320px,90vw);justify-content:space-between}
+input[type=range]{width:150px;accent-color:#ff3cac}
+input[type=checkbox]{width:26px;height:26px;accent-color:#ff3cac}
+ol{margin:0;padding:0;list-style:none;width:min(300px,86vw);font-size:19px}
+ol li{display:flex;justify-content:space-between;padding:4px 10px;border-bottom:1px solid #ffffff22}
+ol li:nth-child(1){color:#ffe14a}ol li.me{background:#ff3cac44;border-radius:8px}
+#ini{font-family:Lilita,sans-serif;font-size:34px;width:140px;text-align:center;text-transform:uppercase;border-radius:12px;border:3px solid #ff3cac;background:#1a0629;color:#fff;padding:4px;letter-spacing:.2em}
+#splash{position:fixed;inset:0;z-index:60;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;background:#12051f;transition:opacity .5s}
+#splash.gone{opacity:0;pointer-events:none}
+#splash .b{font-size:30px;letter-spacing:.25em;color:#ffe14a;text-shadow:0 0 16px #ff3cac}
+#splash .bt{display:flex;gap:10px}#splash .bt i{width:16px;height:34px;border-radius:5px 5px 4px 4px;animation:bob .9s infinite ease-in-out}
+@keyframes bob{50%{transform:translateY(-12px)}}
+</style></head><body>
+<div id="splash"><div class="b">RAINWATER GAMES</div><div class="bt"><i style="background:#ff2a3d"></i><i style="background:#ff8a1c;animation-delay:.1s"></i><i style="background:#9b4dff;animation-delay:.2s"></i><i style="background:#27e07a;animation-delay:.3s"></i><i style="background:#d98a45;animation-delay:.4s"></i></div><div style="font-size:12px;letter-spacing:.2em;color:#c4b5fd">ICING THE POP...</div></div>
+<canvas id="c"></canvas>
+<div id="title" class="ov hide">
+ <div class="col" style="gap:4px;margin-top:8px"><div class="brand">RAINWATER GAMES PRESENTS</div>
+  <div class="logo"><span class="f">FAYGO</span><span class="t">TAPPER</span></div>
+  <div><span class="badge">ALPHA</span><span class="ver" id="verT">v0.3</span></div>
+  <div class="sub">Brooklyn slings pop to the Juggalos!</div></div>
+ <div class="col"><button class="btn" id="bPlay">PLAY</button>
+  <button class="btn s" id="bScores">HIGH SCORES</button><button class="btn s" id="bSet">SETTINGS</button>
+  <div class="how"><b>How to play:</b> tap a bar to move Brooklyn there, then tap the bar again (or POUR) to slide a Faygo. Catch the empties coming back (hold ◀ ▶ or drag to run along the bar), grab tips for a Faygo spray show, and tap a fountain to match a Juggalo's favorite flavor!</div></div>
+ <div class="foot">© 2026 Rainwater Games (Jeff Rainwater). All rights reserved.<br>Fan game, not affiliated with Faygo or Brooklyn Menace.</div>
+</div>
+<div id="settings" class="ov hide"><h2>SETTINGS</h2>
+ <div class="row"><label for="sMus">Music</label><input type="range" id="sMus" min="0" max="1" step="0.05"></div>
+ <div class="row"><label for="sSfx">Sound FX</label><input type="range" id="sSfx" min="0" max="1" step="0.05"></div>
+ <div class="row"><label for="sCalm">Reduce flashing</label><input type="checkbox" id="sCalm"></div>
+ <div class="row"><label for="sVib">Vibration</label><input type="checkbox" id="sVib"></div>
+ <button class="btn s" id="sTut">SHOW TUTORIAL AGAIN</button>
+ <button class="btn s" id="bSetBack">BACK</button>
+ <div class="foot" style="margin:0">Faygo Tapper v0.3 ALPHA · © 2026 Rainwater Games (Jeff Rainwater). All rights reserved.</div></div>
+<div id="scores" class="ov hide"><h2>TOP 10</h2><ol id="hsList"></ol><button class="btn s" id="bScBack">BACK</button></div>
+<div id="pause" class="ov hide"><h2>PAUSED</h2><button class="btn" id="bResume">RESUME</button><button class="btn s" id="bPSet">SETTINGS</button><button class="btn s" id="bQuit">QUIT TO MENU</button></div>
+<div id="over" class="ov hide"><h2 id="ovT">GAME OVER</h2><div class="sub" id="ovS"></div>
+ <div id="iniBox" class="col hide" style="display:none"><div class="sub" style="color:#ffe14a">NEW HIGH SCORE! Your initials:</div><input id="ini" maxlength="3" autocomplete="off" autocapitalize="characters" spellcheck="false"><button class="btn s" id="bIni">SAVE</button></div>
+ <ol id="ovList"></ol>
+ <button class="btn" id="bAgain">PLAY AGAIN</button><button class="btn s" id="bMenu">MENU</button></div>
+<div id="tut" class="hide" style="position:fixed;left:50%;transform:translateX(-50%);bottom:calc(17vh + 10px);z-index:15;width:min(380px,92vw);background:rgba(20,6,36,.92);border:2px solid #ffe14a;border-radius:14px;padding:10px 12px;display:flex;align-items:center;gap:10px;pointer-events:none;font-family:'Trebuchet MS',sans-serif;font-weight:bold;font-size:15px;box-shadow:0 0 16px #ff3cac88"><span id="tutN" style="color:#ffe14a;font-family:Lilita,sans-serif">1/4</span><span id="tutTxt" style="flex:1"></span><button id="tutSkip" style="pointer-events:auto;font-family:Lilita,sans-serif;font-size:15px;border:0;border-radius:10px;padding:8px 12px;background:#ff3cac;color:#fff">SKIP</button></div>
+<style>#tut.hide,#testTag.hide{display:none!important}@media (orientation:landscape){#tut{bottom:12px!important;left:42%!important}}</style>
+<div id="testTag" class="hide" style="position:fixed;top:66px;left:50%;transform:translateX(-50%);z-index:16;background:#ff3cac;color:#fff;border-radius:10px;padding:4px 10px;font-size:13px;font-family:'Trebuchet MS',sans-serif;font-weight:bold;pointer-events:none;white-space:nowrap"></div>
+<script src="install.js?v=0.3" data-name="Faygo Tapper" data-gate="__FT.state=title" data-bottom="10px"></script>
+<script src="game.js?v=0.3"></script>
+</body></html>
